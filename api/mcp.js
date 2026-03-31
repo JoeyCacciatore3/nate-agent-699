@@ -191,6 +191,53 @@ footer a:hover{color:var(--cyan)}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 
+/* ─ Audit Tool ─ */
+.audit-container{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:clamp(1.5rem,3vw,2.5rem);position:relative;overflow:hidden}
+.audit-container::before{content:'';position:absolute;top:-40%;left:-20%;width:400px;height:400px;background:radial-gradient(circle,rgba(0,240,255,0.04),transparent 70%);pointer-events:none}
+.audit-input-row{display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:2rem}
+.audit-field{display:flex;flex-direction:column;gap:6px}
+.audit-field.grow{flex:1;min-width:120px}
+.audit-field label{font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.audit-field select,.audit-field input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-family:var(--font-body);font-size:0.95rem;outline:none;transition:border-color 0.3s}
+.audit-field select:focus,.audit-field input:focus{border-color:var(--cyan)}
+.audit-field select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b80' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+.audit-header{display:flex;gap:2rem;align-items:center;padding:2rem 0;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+.audit-grade-ring{position:relative;width:120px;height:120px;flex-shrink:0}
+.audit-grade-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.audit-grade-text span{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:#fff}
+.audit-grade-text small{font-size:0.8rem;color:var(--text-dim)}
+.audit-header-info{flex:1}
+.audit-header-info h3{font-family:var(--font-display);font-size:1.6rem;font-weight:700;margin-bottom:0.5rem}
+.audit-tier{font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:0.75rem}
+.audit-meta-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.audit-pill{font-family:var(--font-mono);font-size:0.75rem;padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted)}
+.audit-dims{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:1.5rem}
+.audit-dim{text-align:center}
+.audit-dim-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem}
+.audit-dim-bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden;margin-bottom:0.5rem}
+.audit-dim-fill{height:100%;border-radius:3px;width:0;transition:width 1.2s var(--ease-out-expo)}
+.audit-dim-score{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:#fff}
+.audit-dim-max{font-size:0.7rem;color:var(--text-dim)}
+.audit-probes{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.audit-probe{flex:1;min-width:200px;padding:1rem;border-radius:12px;background:var(--bg);border:1px solid var(--border)}
+.audit-probe-status{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-family:var(--font-mono);font-size:0.85rem}
+.audit-probe-dot{width:8px;height:8px;border-radius:50%}
+.audit-probe-detail{font-size:0.8rem;color:var(--text-dim)}
+.audit-three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.audit-col{padding:1.25rem;border-radius:12px;background:var(--bg);border:1px solid var(--border)}
+.audit-col h4{font-family:var(--font-display);font-size:0.95rem;margin-bottom:0.75rem}
+.audit-col ul{list-style:none;padding:0}
+.audit-col li{font-size:0.85rem;color:var(--text-muted);padding:4px 0;line-height:1.5}
+.audit-col li.high{color:var(--signal)}
+.audit-col li.medium{color:var(--gold)}
+.audit-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border)}
+@media(max-width:768px){
+  .audit-header{flex-direction:column;text-align:center}
+  .audit-dims{grid-template-columns:repeat(3,1fr)}
+  .audit-three-col{grid-template-columns:1fr}
+  .audit-meta-row{justify-content:center}
+}
+
 /* ─ Dimensions ─ */
 .dimensions{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:clamp(3rem,6vw,5rem)}
 .dim-cell{background:var(--bg);padding:1.25rem;text-align:center;position:relative}
@@ -224,6 +271,7 @@ footer a:hover{color:var(--cyan)}
   <div class="nav-links">
     <a href="#services">Services</a>
     <a href="#tools">MCP Tools</a>
+    <a href="#audit">Agent Audit</a>
     <a href="#ecosystem">Ecosystem</a>
     <span class="nav-badge">⚡ LIVE ON ABSTRACT</span>
   </div>
@@ -304,6 +352,76 @@ footer a:hover{color:var(--cyan)}
       </div>
       <div class="code-block">
         <code><span class="k">curl</span> -X POST https://nate-agent-699.vercel.app/mcp \\<br>&nbsp;&nbsp;-H <span class="s">"Content-Type: application/json"</span> \\<br>&nbsp;&nbsp;-d <span class="s">'{"<span class="n">jsonrpc</span>":"2.0","<span class="n">method</span>":"tools/list","<span class="n">id</span>":1}'</span></code>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIT TOOL -->
+  <section id="audit">
+    <div class="section-label" data-animate>Free Tool</div>
+    <h2 class="section-title" data-animate>Agent Audit System</h2>
+    <p class="section-desc" data-animate>Real-time comprehensive analysis of any ERC-8004 agent. Live endpoint probing, compliance checks, and actionable recommendations.</p>
+    
+    <div class="audit-container" data-animate>
+      <div class="audit-input-row">
+        <div class="audit-field">
+          <label>Chain</label>
+          <select id="audit-chain">
+            <option value="2741" selected>Abstract</option>
+            <option value="8453">Base</option>
+            <option value="42220">Celo</option>
+            <option value="1">Ethereum</option>
+            <option value="42161">Arbitrum</option>
+            <option value="10">Optimism</option>
+            <option value="137">Polygon</option>
+          </select>
+        </div>
+        <div class="audit-field grow">
+          <label>Token ID</label>
+          <input type="number" id="audit-token" placeholder="e.g. 699" min="0">
+        </div>
+        <button class="btn btn-primary magnetic" id="audit-btn" onclick="runAudit()">
+          <span id="audit-btn-text">Run Audit</span>
+          <span id="audit-spinner" style="display:none">⏳</span>
+        </button>
+      </div>
+      
+      <div id="audit-result" style="display:none">
+        <!-- Header -->
+        <div class="audit-header">
+          <div class="audit-grade-ring" id="audit-grade-ring">
+            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="var(--border)" stroke-width="6"/><circle id="audit-ring-fill" cx="60" cy="60" r="54" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-dasharray="339.3" stroke-dashoffset="339.3" stroke-linecap="round" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.5s var(--ease-out-expo),stroke 0.5s"/></svg>
+            <div class="audit-grade-text"><span id="audit-grade-num">0</span><small>/100</small></div>
+          </div>
+          <div class="audit-header-info">
+            <h3 id="audit-agent-name">—</h3>
+            <div class="audit-tier" id="audit-tier">—</div>
+            <div class="audit-meta-row">
+              <span class="audit-pill" id="audit-chain-pill">—</span>
+              <span class="audit-pill" id="audit-protos-pill">—</span>
+              <span class="audit-pill" id="audit-stars-pill">—</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dimension Bars -->
+        <div class="audit-dims" id="audit-dims"></div>
+        
+        <!-- Probes -->
+        <div class="audit-probes" id="audit-probes"></div>
+        
+        <!-- Strengths / Issues / Recs -->
+        <div class="audit-three-col">
+          <div class="audit-col" id="audit-strengths"><h4>✅ Strengths</h4></div>
+          <div class="audit-col" id="audit-issues"><h4>⚠️ Issues</h4></div>
+          <div class="audit-col" id="audit-recs"><h4>💡 Recommendations</h4></div>
+        </div>
+        
+        <!-- Share -->
+        <div class="audit-footer">
+          <span id="audit-timestamp" style="color:var(--text-dim);font-family:var(--font-mono);font-size:0.75rem"></span>
+          <button class="btn btn-outline" onclick="copyAuditLink()" style="font-size:0.85rem;padding:8px 20px">Copy Audit Link</button>
+        </div>
       </div>
     </div>
   </section>
@@ -442,6 +560,120 @@ document.querySelectorAll('[data-animate],[data-stagger]').forEach(el=>obs.obser
     
     document.getElementById('live-timestamp').textContent='Live data · Updated '+new Date(d.timestamp).toLocaleTimeString()+' · Powered by 8004scan API';
   }catch(e){console.log('Stats fetch:',e)}
+})();
+
+// ─ Audit Tool ─
+const tierColors={S:'var(--cyan)',A:'#22c55e',B:'var(--violet)',C:'var(--gold)',D:'var(--signal)',F:'#ff0033'};
+function getTierColor(tier){return tierColors[tier?.[0]]||'var(--text-dim)'}
+
+async function runAudit(){
+  const chain=document.getElementById('audit-chain').value;
+  const token=document.getElementById('audit-token').value;
+  if(!token){document.getElementById('audit-token').focus();return}
+  
+  document.getElementById('audit-btn-text').style.display='none';
+  document.getElementById('audit-spinner').style.display='inline';
+  document.getElementById('audit-result').style.display='none';
+  
+  try{
+    const r=await fetch('/api/audit?chainId='+chain+'&tokenId='+token);
+    const d=await r.json();
+    if(d.error){alert('Error: '+d.error);return}
+    const a=d.audit;
+    
+    // Show result
+    document.getElementById('audit-result').style.display='block';
+    
+    // Grade ring animation
+    const pct=a.grade/100;
+    const offset=339.3*(1-pct);
+    const ring=document.getElementById('audit-ring-fill');
+    const tc=getTierColor(a.tier);
+    setTimeout(()=>{ring.style.strokeDashoffset=offset;ring.style.stroke=tc},100);
+    
+    // Animate grade number
+    const gradeEl=document.getElementById('audit-grade-num');
+    let current=0;const step=a.grade/30;
+    const timer=setInterval(()=>{current+=step;if(current>=a.grade){current=a.grade;clearInterval(timer)}gradeEl.textContent=Math.round(current)},30);
+    
+    // Header
+    document.getElementById('audit-agent-name').textContent=a.agent.name+' #'+a.agent.tokenId;
+    document.getElementById('audit-tier').innerHTML=a.tierEmoji+' '+a.tier;
+    document.getElementById('audit-tier').style.color=tc;
+    
+    const chains={2741:'Abstract',8453:'Base',42220:'Celo',1:'Ethereum',42161:'Arbitrum',10:'Optimism',137:'Polygon'};
+    document.getElementById('audit-chain-pill').textContent=chains[a.agent.chainId]||'Chain '+a.agent.chainId;
+    document.getElementById('audit-protos-pill').textContent=(a.platformScores.protocols||[]).join(' · ')||'No protocols';
+    document.getElementById('audit-stars-pill').textContent=(a.platformScores.stars||0)+' ⭐';
+    
+    // Dimension bars
+    const dimColors={identity:'var(--cyan)',services:'var(--violet)',compliance:'#22c55e',engagement:'var(--gold)',activity:'var(--signal)'};
+    const dimsEl=document.getElementById('audit-dims');
+    dimsEl.innerHTML=Object.entries(a.breakdown).map(([k,v])=>{
+      const pct=Math.round(v.score/v.max*100);
+      return '<div class=\"audit-dim\"><div class=\"audit-dim-label\">'+k+'</div><div class=\"audit-dim-bar\"><div class=\"audit-dim-fill\" style=\"background:'+(dimColors[k]||'var(--cyan)')+'\" data-width=\"'+pct+'%\"></div></div><div class=\"audit-dim-score\">'+v.score+'<span class=\"audit-dim-max\">/'+v.max+'</span></div></div>';
+    }).join('');
+    // Animate bars
+    setTimeout(()=>{dimsEl.querySelectorAll('.audit-dim-fill').forEach(el=>{el.style.width=el.dataset.width})},200);
+    
+    // Probes
+    const probesEl=document.getElementById('audit-probes');
+    let probeHTML='';
+    if(a.probes.mcp!==null){
+      const alive=a.probes.mcp?.alive;
+      probeHTML+='<div class=\"audit-probe\"><div class=\"audit-probe-status\"><span class=\"audit-probe-dot\" style=\"background:'+(alive?'#22c55e':'var(--signal)')+'\"></span> MCP '+(alive?'Live':'Dead')+'</div><div class=\"audit-probe-detail\">'+(alive?(a.probes.mcp.tools||0)+' tools detected':(a.probes.mcp?.reason||'Unreachable'))+'</div></div>';
+    }
+    if(a.probes.a2a!==null){
+      const valid=a.probes.a2a?.valid;
+      probeHTML+='<div class=\"audit-probe\"><div class=\"audit-probe-status\"><span class=\"audit-probe-dot\" style=\"background:'+(valid?'#22c55e':'var(--signal)')+'\"></span> A2A '+(valid?'Valid':'Invalid')+'</div><div class=\"audit-probe-detail\">'+(valid?(a.probes.a2a.skillCount||0)+' skills · v'+(a.probes.a2a.version||'?'):(a.probes.a2a?.reason||'Error'))+'</div></div>';
+    }
+    if(!probeHTML)probeHTML='<div class=\"audit-probe\"><div class=\"audit-probe-status\"><span class=\"audit-probe-dot\" style=\"background:var(--text-dim)\"></span> No endpoints to probe</div></div>';
+    probesEl.innerHTML=probeHTML;
+    
+    // Lists
+    const sEl=document.getElementById('audit-strengths');
+    sEl.innerHTML='<h4>✅ Strengths</h4><ul>'+a.strengths.map(s=>'<li>'+s+'</li>').join('')+'</ul>';
+    if(!a.strengths.length)sEl.innerHTML+='<p style=\"color:var(--text-dim);font-size:0.85rem\">None detected</p>';
+    
+    const iEl=document.getElementById('audit-issues');
+    iEl.innerHTML='<h4>⚠️ Issues</h4><ul>'+a.issues.map(i=>'<li class=\"'+i.severity+'\">'+i.msg+'</li>').join('')+'</ul>';
+    if(!a.issues.length)iEl.innerHTML+='<p style=\"color:#22c55e;font-size:0.85rem\">No issues found ✨</p>';
+    
+    const rEl=document.getElementById('audit-recs');
+    rEl.innerHTML='<h4>💡 Recommendations</h4><ul>'+a.recommendations.map(r=>'<li>'+r+'</li>').join('')+'</ul>';
+    if(!a.recommendations.length)rEl.innerHTML+='<p style=\"color:var(--text-dim);font-size:0.85rem\">Agent is well optimized</p>';
+    
+    document.getElementById('audit-timestamp').textContent='Audited '+new Date(d.meta.timestamp).toLocaleTimeString()+' by '+d.meta.auditor;
+    
+    // Scroll to result
+    document.getElementById('audit-result').scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){alert('Audit failed: '+e.message)}
+  finally{
+    document.getElementById('audit-btn-text').style.display='inline';
+    document.getElementById('audit-spinner').style.display='none';
+  }
+}
+
+function copyAuditLink(){
+  const chain=document.getElementById('audit-chain').value;
+  const token=document.getElementById('audit-token').value;
+  const url='https://nate-agent-699.vercel.app/api/audit?chainId='+chain+'&tokenId='+token;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn=event.target;btn.textContent='Copied!';setTimeout(()=>{btn.textContent='Copy Audit Link'},2000);
+  });
+}
+
+// Auto-audit from URL params
+(function(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('audit')){
+    const parts=p.get('audit').split(':');
+    if(parts.length===2){
+      document.getElementById('audit-chain').value=parts[0];
+      document.getElementById('audit-token').value=parts[1];
+      setTimeout(runAudit,1000);
+    }
+  }
 })();
 
 // ─ Magnetic Buttons ─
