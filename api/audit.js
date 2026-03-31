@@ -200,13 +200,38 @@ module.exports = async function handler(req, res) {
   const chainId = url.searchParams.get('chainId') || '2741';
   const tokenId = url.searchParams.get('tokenId');
 
+  // Rate limiting — 3 free audits per IP per day
+  const clientIP = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.headers['x-real-ip'] || 'unknown';
+  const usageKey = `audit:${clientIP}:${new Date().toISOString().slice(0, 10)}`;
+  
+  // Simple in-memory counter (resets on redeploy, good enough for now)
+  if (!global._auditUsage) global._auditUsage = {};
+  const usage = global._auditUsage[usageKey] || 0;
+  const FREE_LIMIT = 3;
+  
   if (!tokenId) {
     return res.status(400).json({
       error: 'Missing tokenId parameter',
       usage: '/api/audit?chainId=2741&tokenId=699',
-      description: 'Comprehensive ERC-8004 agent audit by Nate the GrAIt #699'
+      description: 'Comprehensive ERC-8004 agent audit by Nate the GrAIt #699',
+      remaining: Math.max(0, FREE_LIMIT - usage)
     });
   }
+
+  if (usage >= FREE_LIMIT) {
+    return res.status(429).json({
+      error: 'Daily audit limit reached',
+      limit: FREE_LIMIT,
+      used: usage,
+      message: 'You\'ve used your 3 free audits today. Support the project to get unlimited access.',
+      donate: '0x02110ce659ccBa22312235D2295568EB819cA435',
+      donateChain: 'Abstract (2741) or any EVM chain',
+      resetsAt: new Date(new Date().setHours(24, 0, 0, 0)).toISOString()
+    });
+  }
+  
+  // Increment usage
+  global._auditUsage[usageKey] = usage + 1;
 
   try {
     // Fetch agent data
@@ -242,7 +267,9 @@ module.exports = async function handler(req, res) {
         auditorProfile: 'https://8004scan.io/agents/abstract/699',
         version: '1.0.0',
         timestamp: new Date().toISOString(),
-        note: 'This audit is generated algorithmically. For premium deep audits with AI analysis, contact the agent owner.'
+        auditsRemaining: FREE_LIMIT - (usage + 1),
+        note: 'This audit is generated algorithmically. For premium deep audits with AI analysis, contact the agent owner.',
+        donate: '0x02110ce659ccBa22312235D2295568EB819cA435'
       }
     };
 

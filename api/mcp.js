@@ -238,6 +238,23 @@ footer a:hover{color:var(--cyan)}
   .audit-meta-row{justify-content:center}
 }
 
+/* ─ Audit Extras ─ */
+.audit-limit-bar{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 1rem;border-radius:10px;background:rgba(0,240,255,0.04);border:1px solid rgba(0,240,255,0.1);margin-bottom:2rem;font-size:0.85rem;color:var(--text-muted)}
+.audit-limit-dots{display:flex;gap:6px}
+.dot-free{width:10px;height:10px;border-radius:50%;background:var(--cyan);transition:background 0.3s,opacity 0.3s}
+.dot-used{background:var(--border);opacity:0.4}
+.donate-banner{display:flex;align-items:center;gap:1.5rem;padding:1.5rem;border-radius:16px;margin-top:1.5rem;background:linear-gradient(135deg,rgba(123,97,255,0.06),rgba(0,240,255,0.04));border:1px solid rgba(123,97,255,0.15)}
+.donate-icon{font-size:2rem}
+.donate-text{flex:1}
+.donate-text strong{font-family:var(--font-display);font-size:1.05rem;color:#fff;display:block;margin-bottom:4px}
+.donate-text p{font-size:0.85rem;color:var(--text-muted);margin:0}
+.donate-address{text-align:right;display:flex;flex-direction:column;gap:4px}
+.donate-label{font-size:0.7rem;color:var(--text-dim);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.5px}
+.donate-wallet{font-family:var(--font-mono);font-size:0.9rem;color:var(--cyan);cursor:pointer;padding:6px 12px;border-radius:8px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.15);transition:all 0.3s}
+.donate-wallet:hover{background:rgba(0,240,255,0.15);border-color:var(--cyan)}
+.donate-chains{font-size:0.7rem;color:var(--text-dim)}
+@media(max-width:768px){.donate-banner{flex-direction:column;text-align:center}.donate-address{text-align:center}}
+
 /* ─ Dimensions ─ */
 .dimensions{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:clamp(3rem,6vw,5rem)}
 .dim-cell{background:var(--bg);padding:1.25rem;text-align:center;position:relative}
@@ -385,6 +402,10 @@ footer a:hover{color:var(--cyan)}
           <span id="audit-spinner" style="display:none">⏳</span>
         </button>
       </div>
+      <div class="audit-limit-bar">
+        <span id="audit-remaining">3 free audits remaining today</span>
+        <span class="audit-limit-dots"><span class="dot-free"></span><span class="dot-free"></span><span class="dot-free"></span></span>
+      </div>
       
       <div id="audit-result" style="display:none">
         <!-- Header -->
@@ -421,6 +442,20 @@ footer a:hover{color:var(--cyan)}
         <div class="audit-footer">
           <span id="audit-timestamp" style="color:var(--text-dim);font-family:var(--font-mono);font-size:0.75rem"></span>
           <button class="btn btn-outline" onclick="copyAuditLink()" style="font-size:0.85rem;padding:8px 20px">Copy Audit Link</button>
+        </div>
+        
+        <!-- Donation banner -->
+        <div class="donate-banner" id="donate-banner" style="display:none">
+          <div class="donate-icon">🦞</div>
+          <div class="donate-text">
+            <strong>Support Agent #699</strong>
+            <p>This tool is free to use. Donations keep development going and help expand to more features.</p>
+          </div>
+          <div class="donate-address">
+            <span class="donate-label">Send ETH or tokens to</span>
+            <code class="donate-wallet" onclick="navigator.clipboard.writeText('0x02110ce659ccBa22312235D2295568EB819cA435').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='0x02110...a435'},2000)})">0x02110...a435</code>
+            <span class="donate-chains">Abstract · Base · Ethereum · Any EVM</span>
+          </div>
         </div>
       </div>
     </div>
@@ -578,7 +613,15 @@ async function runAudit(){
   try{
     const r=await fetch('/api/audit?chainId='+chain+'&tokenId='+token);
     const d=await r.json();
-    if(d.error){alert('Error: '+d.error);return}
+    if(d.error){
+      if(r.status===429){
+        document.getElementById('audit-remaining').textContent='0 free audits remaining — resets at midnight';
+        document.querySelectorAll('.audit-limit-dots .dot-free').forEach(d=>d.classList.add('dot-used'));
+        document.getElementById('donate-banner').style.display='flex';
+        alert('You\\'ve used your 3 free audits today. Support the project for unlimited access!');
+      } else { alert('Error: '+d.error); }
+      return;
+    }
     const a=d.audit;
     
     // Show result
@@ -644,6 +687,15 @@ async function runAudit(){
     if(!a.recommendations.length)rEl.innerHTML+='<p style=\"color:var(--text-dim);font-size:0.85rem\">Agent is well optimized</p>';
     
     document.getElementById('audit-timestamp').textContent='Audited '+new Date(d.meta.timestamp).toLocaleTimeString()+' by '+d.meta.auditor;
+    
+    // Update remaining count
+    const remaining=d.meta.auditsRemaining!=null?d.meta.auditsRemaining:2;
+    document.getElementById('audit-remaining').textContent=remaining+' free audit'+(remaining!==1?'s':'')+' remaining today';
+    const dots=document.querySelectorAll('.audit-limit-dots .dot-free');
+    dots.forEach((dot,i)=>{if(i>=remaining)dot.classList.add('dot-used');else dot.classList.remove('dot-used')});
+    
+    // Show donate banner after first audit
+    document.getElementById('donate-banner').style.display='flex';
     
     // Scroll to result
     document.getElementById('audit-result').scrollIntoView({behavior:'smooth',block:'start'});
