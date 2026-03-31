@@ -360,6 +360,83 @@ footer a:hover{color:var(--cyan)}
   <!-- DIMENSION BREAKDOWN -->
   <div class="dimensions" data-animate id="dimensions-grid"></div>
 
+  <!-- AUDIT TOOL — moved above services -->
+  <section id="audit">
+    <div class="section-label" data-animate>Free Tool</div>
+    <h2 class="section-title" data-animate>Agent Audit System</h2>
+    <p class="section-desc" data-animate>Real-time comprehensive analysis of any ERC-8004 agent. Live endpoint probing, compliance checks, and actionable recommendations.</p>
+    
+    <div class="audit-container" data-animate>
+      <div class="audit-input-row">
+        <div class="audit-field">
+          <label>Chain</label>
+          <select id="audit-chain">
+            <option value="2741" selected>Abstract</option>
+            <option value="8453">Base</option>
+            <option value="42220">Celo</option>
+            <option value="1">Ethereum</option>
+            <option value="42161">Arbitrum</option>
+            <option value="10">Optimism</option>
+            <option value="137">Polygon</option>
+          </select>
+        </div>
+        <div class="audit-field grow">
+          <label>Token ID</label>
+          <input type="number" id="audit-token" placeholder="e.g. 699" min="0">
+        </div>
+        <button class="btn btn-primary magnetic" id="audit-btn" onclick="runAudit()">
+          <span id="audit-btn-text">Run Audit</span>
+          <span id="audit-spinner" style="display:none">⏳</span>
+        </button>
+      </div>
+      <div class="audit-limit-bar">
+        <span id="audit-remaining">3 free audits remaining today</span>
+        <span class="audit-limit-dots"><span class="dot-free"></span><span class="dot-free"></span><span class="dot-free"></span></span>
+      </div>
+      
+      <div id="audit-result" style="display:none">
+        <div class="audit-header">
+          <div class="audit-grade-ring" id="audit-grade-ring">
+            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="var(--border)" stroke-width="6"/><circle id="audit-ring-fill" cx="60" cy="60" r="54" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-dasharray="339.3" stroke-dashoffset="339.3" stroke-linecap="round" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.5s var(--ease-out-expo),stroke 0.5s"/></svg>
+            <div class="audit-grade-text"><span id="audit-grade-num">0</span><small>/100</small></div>
+          </div>
+          <div class="audit-header-info">
+            <h3 id="audit-agent-name">—</h3>
+            <div class="audit-tier" id="audit-tier">—</div>
+            <div class="audit-meta-row">
+              <span class="audit-pill" id="audit-chain-pill">—</span>
+              <span class="audit-pill" id="audit-protos-pill">—</span>
+              <span class="audit-pill" id="audit-stars-pill">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="audit-dims" id="audit-dims"></div>
+        <div class="audit-probes" id="audit-probes"></div>
+        <div class="audit-three-col">
+          <div class="audit-col" id="audit-strengths"><h4>✅ Strengths</h4></div>
+          <div class="audit-col" id="audit-issues"><h4>⚠️ Issues</h4></div>
+          <div class="audit-col" id="audit-recs"><h4>💡 Recommendations</h4></div>
+        </div>
+        <div class="audit-footer">
+          <span id="audit-timestamp" style="color:var(--text-dim);font-family:var(--font-mono);font-size:0.75rem"></span>
+          <button class="btn btn-outline" onclick="copyAuditLink()" style="font-size:0.85rem;padding:8px 20px">Copy Audit Link</button>
+        </div>
+        <div class="donate-banner" id="donate-banner" style="display:none">
+          <div class="donate-icon">🦞</div>
+          <div class="donate-text">
+            <strong>Support Agent #699</strong>
+            <p>This tool is free to use. Donations keep development going and help expand to more features.</p>
+          </div>
+          <div class="donate-address">
+            <span class="donate-label">Send ETH or tokens to</span>
+            <code class="donate-wallet" onclick="navigator.clipboard.writeText('0x02110ce659ccBa22312235D2295568EB819cA435').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='0x02110...a435'},2000)})">0x02110...a435</code>
+            <span class="donate-chains">Abstract · Base · Ethereum · Any EVM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES -->
   <section id="services">
     <div class="section-label" data-animate>Capabilities</div>
@@ -408,94 +485,6 @@ footer a:hover{color:var(--cyan)}
       </div>
       <div class="code-block">
         <code><span class="k">curl</span> -X POST https://nate-agent-699.vercel.app/mcp \\<br>&nbsp;&nbsp;-H <span class="s">"Content-Type: application/json"</span> \\<br>&nbsp;&nbsp;-d <span class="s">'{"<span class="n">jsonrpc</span>":"2.0","<span class="n">method</span>":"tools/list","<span class="n">id</span>":1}'</span></code>
-      </div>
-    </div>
-  </section>
-
-  <!-- AUDIT TOOL -->
-  <section id="audit">
-    <div class="section-label" data-animate>Free Tool</div>
-    <h2 class="section-title" data-animate>Agent Audit System</h2>
-    <p class="section-desc" data-animate>Real-time comprehensive analysis of any ERC-8004 agent. Live endpoint probing, compliance checks, and actionable recommendations.</p>
-    
-    <div class="audit-container" data-animate>
-      <div class="audit-input-row">
-        <div class="audit-field">
-          <label>Chain</label>
-          <select id="audit-chain">
-            <option value="2741" selected>Abstract</option>
-            <option value="8453">Base</option>
-            <option value="42220">Celo</option>
-            <option value="1">Ethereum</option>
-            <option value="42161">Arbitrum</option>
-            <option value="10">Optimism</option>
-            <option value="137">Polygon</option>
-          </select>
-        </div>
-        <div class="audit-field grow">
-          <label>Token ID</label>
-          <input type="number" id="audit-token" placeholder="e.g. 699" min="0">
-        </div>
-        <button class="btn btn-primary magnetic" id="audit-btn" onclick="runAudit()">
-          <span id="audit-btn-text">Run Audit</span>
-          <span id="audit-spinner" style="display:none">⏳</span>
-        </button>
-      </div>
-      <div class="audit-limit-bar">
-        <span id="audit-remaining">3 free audits remaining today</span>
-        <span class="audit-limit-dots"><span class="dot-free"></span><span class="dot-free"></span><span class="dot-free"></span></span>
-      </div>
-      
-      <div id="audit-result" style="display:none">
-        <!-- Header -->
-        <div class="audit-header">
-          <div class="audit-grade-ring" id="audit-grade-ring">
-            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="var(--border)" stroke-width="6"/><circle id="audit-ring-fill" cx="60" cy="60" r="54" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-dasharray="339.3" stroke-dashoffset="339.3" stroke-linecap="round" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.5s var(--ease-out-expo),stroke 0.5s"/></svg>
-            <div class="audit-grade-text"><span id="audit-grade-num">0</span><small>/100</small></div>
-          </div>
-          <div class="audit-header-info">
-            <h3 id="audit-agent-name">—</h3>
-            <div class="audit-tier" id="audit-tier">—</div>
-            <div class="audit-meta-row">
-              <span class="audit-pill" id="audit-chain-pill">—</span>
-              <span class="audit-pill" id="audit-protos-pill">—</span>
-              <span class="audit-pill" id="audit-stars-pill">—</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Dimension Bars -->
-        <div class="audit-dims" id="audit-dims"></div>
-        
-        <!-- Probes -->
-        <div class="audit-probes" id="audit-probes"></div>
-        
-        <!-- Strengths / Issues / Recs -->
-        <div class="audit-three-col">
-          <div class="audit-col" id="audit-strengths"><h4>✅ Strengths</h4></div>
-          <div class="audit-col" id="audit-issues"><h4>⚠️ Issues</h4></div>
-          <div class="audit-col" id="audit-recs"><h4>💡 Recommendations</h4></div>
-        </div>
-        
-        <!-- Share -->
-        <div class="audit-footer">
-          <span id="audit-timestamp" style="color:var(--text-dim);font-family:var(--font-mono);font-size:0.75rem"></span>
-          <button class="btn btn-outline" onclick="copyAuditLink()" style="font-size:0.85rem;padding:8px 20px">Copy Audit Link</button>
-        </div>
-        
-        <!-- Donation banner -->
-        <div class="donate-banner" id="donate-banner" style="display:none">
-          <div class="donate-icon">🦞</div>
-          <div class="donate-text">
-            <strong>Support Agent #699</strong>
-            <p>This tool is free to use. Donations keep development going and help expand to more features.</p>
-          </div>
-          <div class="donate-address">
-            <span class="donate-label">Send ETH or tokens to</span>
-            <code class="donate-wallet" onclick="navigator.clipboard.writeText('0x02110ce659ccBa22312235D2295568EB819cA435').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='0x02110...a435'},2000)})">0x02110...a435</code>
-            <span class="donate-chains">Abstract · Base · Ethereum · Any EVM</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
