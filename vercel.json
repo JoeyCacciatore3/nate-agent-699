@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/mcp",
+      "dest": "/api/mcp"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/mcp"
+    }
+  ]
+}
