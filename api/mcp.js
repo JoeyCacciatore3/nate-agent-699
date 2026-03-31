@@ -89,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem clamp(1.5rem
 .nav-badge{background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.2);color:var(--cyan);padding:6px 14px;border-radius:100px;font-size:0.8rem;font-family:var(--font-mono);letter-spacing:0.5px}
 
 /* ─ Hero ─ */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:5rem}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:7rem}
 .hero-label{font-family:var(--font-mono);font-size:clamp(0.75rem,1vw,0.9rem);color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px}
 .hero-label::before{content:'';width:40px;height:1px;background:var(--cyan)}
 .hero-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);font-weight:700;line-height:0.95;letter-spacing:-0.03em;margin-bottom:1.5rem}
@@ -111,8 +111,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem clamp(1.5rem
 .chip-icon{font-size:1rem}
 .chip-badge{font-family:var(--font-mono);font-size:0.65rem;padding:2px 8px;border-radius:100px;background:rgba(0,240,255,0.12);color:var(--cyan);margin-left:4px;letter-spacing:0.5px;text-transform:uppercase}
 
-/* ─ Ticker ─ */
-.ticker-wrap{position:relative;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0;margin:0 calc(-1 * clamp(1.5rem,4vw,3rem))}
+/* ─ Ticker (fixed under nav) ─ */
+.ticker-fixed{position:fixed;top:57px;left:0;right:0;z-index:99;background:rgba(8,8,16,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);overflow:hidden}
 .ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;padding:0 1rem;font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);letter-spacing:2px;background:linear-gradient(90deg,var(--bg) 80%,transparent);min-width:180px}
 .ticker-track{overflow:hidden;padding:0.75rem 0 0.75rem 180px}
 .ticker-scroll{display:flex;gap:2rem;animation:tickerScroll 30s linear infinite;width:max-content}
@@ -319,6 +319,13 @@ footer a:hover{color:var(--cyan)}
   </div>
 </nav>
 
+<div class="ticker-fixed">
+  <div class="ticker-label">ABSTRACT TOP 10 — LIVE</div>
+  <div class="ticker-track" id="ticker-track">
+    <div class="ticker-scroll" id="ticker-scroll"></div>
+  </div>
+</div>
+
 <div class="wrapper">
 
   <!-- HERO -->
@@ -341,13 +348,7 @@ footer a:hover{color:var(--cyan)}
     </div>
   </section>
 
-  <!-- TICKER -->
-  <div class="ticker-wrap" data-animate>
-    <div class="ticker-label">ABSTRACT TOP 10 — LIVE</div>
-    <div class="ticker-track" id="ticker-track">
-      <div class="ticker-scroll" id="ticker-scroll"></div>
-    </div>
-  </div>
+
 
   <!-- STATS — live from 8004scan API -->
   <div class="stats-bar" data-animate>
