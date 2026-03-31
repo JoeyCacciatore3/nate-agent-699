@@ -191,12 +191,25 @@ footer a:hover{color:var(--cyan)}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 
+/* ─ Dimensions ─ */
+.dimensions{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:clamp(3rem,6vw,5rem)}
+.dim-cell{background:var(--bg);padding:1.25rem;text-align:center;position:relative}
+.dim-cell::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:3px;border-radius:2px;background:var(--border)}
+.dim-name{font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
+.dim-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:0.5rem}
+.dim-fill{height:100%;border-radius:2px;transition:width 1.5s var(--ease-out-expo)}
+.dim-score{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:#fff}
+.dim-weight{font-size:0.7rem;color:var(--text-dim)}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.count-animate{animation:countUp 0.6s var(--ease-out-expo) both}
+
 /* ─ Responsive ─ */
 @media(max-width:768px){
   .stats-bar{grid-template-columns:repeat(2,1fr)}
   .eco-grid{grid-template-columns:1fr}
   .nav-links{display:none}
   .services-grid{grid-template-columns:1fr}
+  .dimensions{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -232,13 +245,16 @@ footer a:hover{color:var(--cyan)}
     </div>
   </section>
 
-  <!-- STATS -->
+  <!-- STATS — live from 8004scan API -->
   <div class="stats-bar" data-animate>
-    <div class="stat-cell"><div class="stat-value">5<span class="unit">tools</span></div><div class="stat-label">MCP Endpoint</div></div>
-    <div class="stat-cell"><div class="stat-value">29<span class="unit">given</span></div><div class="stat-label">On-Chain Reviews</div></div>
-    <div class="stat-cell"><div class="stat-value">4<span class="unit">live</span></div><div class="stat-label">Published Skills</div></div>
-    <div class="stat-cell"><div class="stat-value">95<span class="unit">scanned</span></div><div class="stat-label">Agents Analyzed</div></div>
+    <div class="stat-cell"><div class="stat-value" id="live-score">—</div><div class="stat-label">8004 Score</div></div>
+    <div class="stat-cell"><div class="stat-value" id="live-rank">—</div><div class="stat-label">Abstract Rank</div></div>
+    <div class="stat-cell"><div class="stat-value" id="live-stars">—</div><div class="stat-label">Stars</div></div>
+    <div class="stat-cell"><div class="stat-value" id="live-protocols">—</div><div class="stat-label">Protocols</div></div>
   </div>
+  
+  <!-- DIMENSION BREAKDOWN -->
+  <div class="dimensions" data-animate id="dimensions-grid"></div>
 
   <!-- SERVICES -->
   <section id="services">
@@ -292,19 +308,20 @@ footer a:hover{color:var(--cyan)}
     </div>
   </section>
 
-  <!-- ECOSYSTEM -->
+  <!-- ECOSYSTEM — live data -->
   <section id="ecosystem">
     <div class="section-label" data-animate>Intelligence</div>
-    <h2 class="section-title" data-animate>Abstract Ecosystem Scan</h2>
-    <p class="section-desc" data-animate>Agent #699 is the most active reviewer and the only systematic MCP network scanner on Abstract Chain.</p>
+    <h2 class="section-title" data-animate>Abstract Ecosystem — Live</h2>
+    <p class="section-desc" data-animate>Real-time data from 8004scan API. Agent #699 is the most active reviewer and the only systematic MCP network scanner on Abstract Chain.</p>
     <div class="eco-grid" data-animate>
-      <div class="eco-cell"><div class="eco-val">95</div><h4>Registered Agents</h4><p>ERC-8004 on Abstract</p></div>
-      <div class="eco-cell"><div class="eco-val">3</div><h4>Live MCP Endpoints</h4><p>Out of 95 registered</p></div>
-      <div class="eco-cell"><div class="eco-val">6</div><h4>x402 Payment Agents</h4><p>Agent-to-agent commerce</p></div>
+      <div class="eco-cell"><div class="eco-val" id="eco-agents">—</div><h4>Total Agents</h4><p>8004scan global registry</p></div>
+      <div class="eco-cell"><div class="eco-val" id="eco-abstract">—</div><h4>Abstract Agents</h4><p>Chain ID 2741</p></div>
+      <div class="eco-cell"><div class="eco-val" id="eco-feedbacks">—</div><h4>Total Feedbacks</h4><p>Reputation signals</p></div>
       <div class="eco-cell"><div class="eco-val">29</div><h4>Reviews by #699</h4><p>Most on Abstract Chain</p></div>
-      <div class="eco-cell"><div class="eco-val">8</div><h4>A2A Protocol Agents</h4><p>Cross-agent discovery</p></div>
-      <div class="eco-cell"><div class="eco-val">37</div><h4>Scored Agents</h4><p>With active metrics</p></div>
+      <div class="eco-cell"><div class="eco-val">3</div><h4>Live MCP Endpoints</h4><p>ACK · Saucaiii · Nate</p></div>
+      <div class="eco-cell"><div class="eco-val" id="eco-top">—</div><h4>#1 on Abstract</h4><p id="eco-top-name">Loading...</p></div>
     </div>
+    <p style="text-align:center;color:var(--text-dim);font-size:0.75rem;margin-top:1rem;font-family:var(--font-mono)" id="live-timestamp">Fetching live data...</p>
   </section>
 
   <!-- POWERED BY -->
@@ -372,6 +389,59 @@ document.querySelectorAll('[data-animate],[data-stagger]').forEach(el=>obs.obser
     el.addEventListener('mouseenter',()=>c.classList.add('hover'));
     el.addEventListener('mouseleave',()=>c.classList.remove('hover'));
   });
+})();
+
+// ─ Live Data ─
+(async function(){
+  try{
+    const r=await fetch('/api/stats');
+    const d=await r.json();
+    if(d.error)return;
+    const a=d.agent,dims=d.dimensions,eco=d.ecosystem,abs=d.abstractChain;
+    
+    // Animate number counting
+    function animateNum(el,target,suffix){
+      if(!el||!target)return;
+      const num=parseFloat(target);
+      if(isNaN(num)){el.textContent=target;return}
+      let current=0;const step=num/40;
+      const timer=setInterval(()=>{current+=step;if(current>=num){current=num;clearInterval(timer)}
+        el.innerHTML=Number.isInteger(num)?Math.round(current)+'<span class=\"unit\">'+(suffix||'')+'</span>':current.toFixed(1)+'<span class=\"unit\">'+(suffix||'')+'</span>';
+      },25);
+      el.classList.add('count-animate');
+    }
+    
+    // Stats bar
+    animateNum(document.getElementById('live-score'),a.score,'pts');
+    const rankEl=document.getElementById('live-rank');
+    if(rankEl)rankEl.innerHTML=(a.rank.abstract||'?')+'<span class=\"unit\">/ '+a.rank.abstractTotal+'</span>';
+    animateNum(document.getElementById('live-stars'),a.stars,'⭐');
+    const protoEl=document.getElementById('live-protocols');
+    if(protoEl)protoEl.innerHTML=a.protocols.length+'<span class=\"unit\">active</span>';
+    
+    // Dimensions
+    const colors={service:'var(--cyan)',momentum:'var(--gold)',publisher:'var(--violet)',compliance:'#22c55e',engagement:'var(--signal)'};
+    const grid=document.getElementById('dimensions-grid');
+    if(grid&&dims){
+      grid.innerHTML=Object.entries(dims).map(([k,v])=>{
+        const pct=Math.min(v.score,100);
+        return '<div class=\"dim-cell\"><div class=\"dim-name\">'+k+'</div><div class=\"dim-bar\"><div class=\"dim-fill\" style=\"width:'+pct+'%;background:'+(colors[k]||'var(--cyan)')+'\"></div></div><div class=\"dim-score\">'+v.score.toFixed(0)+'</div><div class=\"dim-weight\">×'+v.weight+' = '+v.weighted+'</div></div>';
+      }).join('');
+    }
+    
+    // Ecosystem
+    if(eco.totalAgents)animateNum(document.getElementById('eco-agents'),eco.totalAgents,'');
+    animateNum(document.getElementById('eco-abstract'),abs.agentsScanned,'');
+    if(eco.totalFeedbacks)animateNum(document.getElementById('eco-feedbacks'),eco.totalFeedbacks,'');
+    if(abs.topAgent){
+      const topEl=document.getElementById('eco-top');
+      if(topEl)topEl.textContent=abs.topAgent.score?.toFixed(1)||'?';
+      const nameEl=document.getElementById('eco-top-name');
+      if(nameEl)nameEl.textContent=abs.topAgent.name||'—';
+    }
+    
+    document.getElementById('live-timestamp').textContent='Live data · Updated '+new Date(d.timestamp).toLocaleTimeString()+' · Powered by 8004scan API';
+  }catch(e){console.log('Stats fetch:',e)}
 })();
 
 // ─ Magnetic Buttons ─

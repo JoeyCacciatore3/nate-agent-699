@@ -6,6 +6,10 @@
       "dest": "/api/mcp"
     },
     {
+      "src": "/api/stats",
+      "dest": "/api/stats"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/mcp"
     }
