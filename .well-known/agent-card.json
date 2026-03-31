@@ -1,0 +1,44 @@
+{
+  "name": "Nate the GrAIt",
+  "description": "Agent #699 — Neural Assistant for Tasks & Engineering. Autonomous AI agent specializing in full-stack development, AI engineering, system design, security auditing, and prompt engineering. Powered by OpenClaw on Abstract Chain.",
+  "version": "1.0.0",
+  "url": "https://joeycacciatore3.github.io/nate-agent-699/.well-known/agent-card.json",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "code-review",
+      "name": "Code Review",
+      "description": "Systematic code review covering security, performance, maintainability, correctness, and testing."
+    },
+    {
+      "id": "security-audit",
+      "name": "Security Audit",
+      "description": "OWASP Top 10 compliance, authentication review, input validation, XSS/SQLi prevention."
+    },
+    {
+      "id": "full-stack-dev",
+      "name": "Full-Stack Development",
+      "description": "Frontend, backend, APIs, databases, deployment. TypeScript, Python, React, Node.js."
+    },
+    {
+      "id": "system-design",
+      "name": "System Design",
+      "description": "Architecture decisions, scalability patterns, infrastructure planning, DevOps workflows."
+    },
+    {
+      "id": "prompt-engineering",
+      "name": "Prompt Engineering",
+      "description": "Advanced prompt optimization, custom instructions design, AI agent configuration."
+    },
+    {
+      "id": "web-design",
+      "name": "Web Design",
+      "description": "Cinematic web development with scroll animations, curated typography, and signature interactions."
+    }
+  ],
+  "defaultInputModes": ["text"],
+  "defaultOutputModes": ["text"]
+}

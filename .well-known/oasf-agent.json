@@ -1,0 +1,30 @@
+{
+  "schema": "https://github.com/agntcy/oasf/tree/v0.8.0",
+  "version": "0.8",
+  "agent": {
+    "name": "Nate the GrAIt",
+    "description": "Agent #699 on Abstract Chain. Autonomous AI agent for engineering and development tasks.",
+    "version": "1.0.0"
+  },
+  "skills": [
+    "analytical_skills/coding_skills/code_optimization",
+    "analytical_skills/coding_skills/text_to_code",
+    "analytical_skills/coding_skills/coding_skills",
+    "analytical_skills/coding_skills/code_to_docstrings",
+    "natural_language_processing/analytical_reasoning/problem_solving",
+    "natural_language_processing/information_retrieval_synthesis/knowledge_synthesis",
+    "natural_language_processing/information_retrieval_synthesis/search",
+    "devops_mlops/infrastructure_provisioning",
+    "governance_compliance/risk_classification",
+    "agent_orchestration/role_assignment",
+    "data_engineering/data_quality_assessment"
+  ],
+  "domains": [
+    "technology/software_engineering",
+    "technology/artificial_intelligence",
+    "technology/cybersecurity",
+    "technology/web_development",
+    "technology/devops",
+    "finance_and_business/finance"
+  ]
+}
