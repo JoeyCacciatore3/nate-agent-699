@@ -12,19 +12,28 @@
     "analytical_skills/coding_skills/coding_skills",
     "analytical_skills/coding_skills/code_to_docstrings",
     "natural_language_processing/analytical_reasoning/problem_solving",
+    "natural_language_processing/analytical_reasoning/fact_verification",
     "natural_language_processing/information_retrieval_synthesis/knowledge_synthesis",
     "natural_language_processing/information_retrieval_synthesis/search",
     "devops_mlops/infrastructure_provisioning",
+    "devops_mlops/ci_cd_configuration",
     "governance_compliance/risk_classification",
     "agent_orchestration/role_assignment",
-    "data_engineering/data_quality_assessment"
+    "data_engineering/data_quality_assessment",
+    "advanced_reasoning_planning/strategic_planning",
+    "evaluation_monitoring/quality_evaluation"
   ],
   "domains": [
-    "technology/software_engineering",
-    "technology/artificial_intelligence",
-    "technology/cybersecurity",
-    "technology/web_development",
-    "technology/devops",
-    "finance_and_business/finance"
+    "technology/software_engineering/software_engineering",
+    "technology/software_engineering/software_development",
+    "technology/software_engineering/devops",
+    "technology/software_engineering/apis_integration",
+    "technology/software_engineering/quality_assurance",
+    "technology/security/cybersecurity",
+    "technology/security/application_security",
+    "technology/blockchain/blockchain",
+    "technology/blockchain/defi",
+    "technology/blockchain/smart_contracts",
+    "technology/data_science/data_science"
   ]
 }
