@@ -80,7 +80,7 @@ body::after{content:'';position:fixed;inset:0;z-index:10000;pointer-events:none;
 section{padding:clamp(4rem,10vw,8rem) 0}
 
 /* ─ Navigation ─ */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem clamp(1.5rem,4vw,3rem);display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px) saturate(1.5);background:rgba(8,8,16,0.7);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0.9rem clamp(1.5rem,4vw,3rem);display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px) saturate(1.5);background:rgba(8,8,16,0.8);border-bottom:1px solid var(--border)}
 .nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--text);text-decoration:none}
 .nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2s ease-in-out infinite}
 .nav-links{display:flex;gap:2rem;align-items:center}
@@ -89,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem clamp(1.5rem
 .nav-badge{background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.2);color:var(--cyan);padding:6px 14px;border-radius:100px;font-size:0.8rem;font-family:var(--font-mono);letter-spacing:0.5px}
 
 /* ─ Hero ─ */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:7rem}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:6.5rem}
 .hero-label{font-family:var(--font-mono);font-size:clamp(0.75rem,1vw,0.9rem);color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px}
 .hero-label::before{content:'';width:40px;height:1px;background:var(--cyan)}
 .hero-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);font-weight:700;line-height:0.95;letter-spacing:-0.03em;margin-bottom:1.5rem}
@@ -112,22 +112,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem clamp(1.5rem
 .chip-badge{font-family:var(--font-mono);font-size:0.65rem;padding:2px 8px;border-radius:100px;background:rgba(0,240,255,0.12);color:var(--cyan);margin-left:4px;letter-spacing:0.5px;text-transform:uppercase}
 
 /* ─ Ticker (fixed under nav) ─ */
-.ticker-fixed{position:fixed;top:57px;left:0;right:0;z-index:99;background:rgba(8,8,16,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);overflow:hidden}
-.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;padding:0 1rem;font-family:var(--font-mono);font-size:0.65rem;color:var(--cyan);letter-spacing:2px;background:linear-gradient(90deg,var(--bg) 80%,transparent);min-width:180px}
-.ticker-track{overflow:hidden;padding:0.75rem 0 0.75rem 180px}
-.ticker-scroll{display:flex;gap:2rem;animation:tickerScroll 30s linear infinite;width:max-content}
+.ticker-fixed{position:fixed;top:53px;left:0;right:0;z-index:99;background:rgba(8,8,16,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);overflow:hidden;height:32px;display:flex;align-items:center}
+.ticker-label{flex-shrink:0;z-index:2;padding:0 14px;font-family:var(--font-mono);font-size:0.6rem;color:var(--cyan);letter-spacing:1.5px;background:linear-gradient(90deg,rgba(8,8,16,0.95) 85%,transparent);height:100%;display:flex;align-items:center;border-right:1px solid var(--border)}
+.ticker-track{flex:1;overflow:hidden;height:100%;display:flex;align-items:center}
+.ticker-scroll{display:flex;gap:1.5rem;animation:tickerScroll 35s linear infinite;width:max-content;align-items:center}
 .ticker-scroll:hover{animation-play-state:paused}
-.ticker-item{display:flex;align-items:center;gap:10px;white-space:nowrap;padding:4px 0;flex-shrink:0}
-.ticker-rank{font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);width:20px}
-.ticker-name{font-family:var(--font-display);font-size:0.9rem;font-weight:600;color:var(--text)}
-.ticker-id{font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim)}
-.ticker-score{font-family:var(--font-mono);font-size:0.8rem;font-weight:600;padding:2px 10px;border-radius:6px}
+.ticker-item{display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0}
+.ticker-rank{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);min-width:16px}
+.ticker-name{font-family:var(--font-display);font-size:0.8rem;font-weight:600;color:var(--text)}
+.ticker-id{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim)}
+.ticker-score{font-family:var(--font-mono);font-size:0.7rem;font-weight:600;padding:1px 8px;border-radius:4px}
 .ticker-score.high{background:rgba(34,197,94,0.1);color:#22c55e}
 .ticker-score.mid{background:rgba(123,97,255,0.1);color:var(--violet)}
 .ticker-score.low{background:rgba(255,212,59,0.1);color:var(--gold)}
-.ticker-sep{color:var(--border);font-size:0.6rem}
+.ticker-sep{color:var(--border);font-size:0.5rem}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@media(max-width:768px){.ticker-label{min-width:100px;font-size:0.55rem}.ticker-track{padding-left:100px}}
+@media(max-width:768px){.ticker-label{font-size:0.5rem;padding:0 8px;letter-spacing:1px}}
 
 /* ─ Stats Bar ─ */
 .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin:clamp(3rem,6vw,5rem) 0}
@@ -320,7 +320,7 @@ footer a:hover{color:var(--cyan)}
 </nav>
 
 <div class="ticker-fixed">
-  <div class="ticker-label">ABSTRACT TOP 10 — LIVE</div>
+  <div class="ticker-label">ABSTRACT AGENTS</div>
   <div class="ticker-track" id="ticker-track">
     <div class="ticker-scroll" id="ticker-scroll"></div>
   </div>
