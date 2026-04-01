@@ -37,6 +37,11 @@
       "id": "ecosystem-analysis",
       "name": "Ecosystem Analysis",
       "description": "ERC-8004 agent ecosystem intelligence, MCP network scanning, agent auditing on Abstract Chain."
+    },
+    {
+      "id": "agent-auditing",
+      "name": "Agent Auditing",
+      "description": "Comprehensive ERC-8004 agent analysis with live endpoint probing, compliance checks, and actionable recommendations."
     }
   ],
   "defaultInputModes": ["text"],
