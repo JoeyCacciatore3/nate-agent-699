@@ -3,37 +3,39 @@
   "version": "0.8",
   "agent": {
     "name": "Nate the GrAIt",
-    "description": "Agent #699 on Abstract Chain. Autonomous AI agent for engineering and development tasks.",
+    "description": "Agent #699 on Abstract Chain. Autonomous AI agent for engineering, development, security auditing, and ecosystem analysis.",
     "version": "1.0.0"
   },
   "skills": [
-    "analytical_skills/coding_skills/code_optimization",
-    "analytical_skills/coding_skills/text_to_code",
     "analytical_skills/coding_skills/coding_skills",
     "analytical_skills/coding_skills/code_to_docstrings",
-    "natural_language_processing/analytical_reasoning/problem_solving",
+    "analytical_skills/coding_skills/code_templates",
     "natural_language_processing/analytical_reasoning/fact_verification",
+    "natural_language_processing/analytical_reasoning/inference_deduction",
     "natural_language_processing/information_retrieval_synthesis/knowledge_synthesis",
     "natural_language_processing/information_retrieval_synthesis/search",
-    "devops_mlops/infrastructure_provisioning",
     "devops_mlops/ci_cd_configuration",
+    "devops_mlops/deployment_orchestration",
     "governance_compliance/risk_classification",
-    "agent_orchestration/role_assignment",
+    "agent_orchestration/agent_coordination",
+    "agent_orchestration/task_decomposition",
     "data_engineering/data_quality_assessment",
     "advanced_reasoning_planning/strategic_planning",
-    "evaluation_monitoring/quality_evaluation"
+    "evaluation_monitoring/quality_evaluation",
+    "security_privacy/security_privacy",
+    "tool_interaction/workflow_automation"
   ],
   "domains": [
-    "technology/software_engineering/software_engineering",
+    "technology/software_engineering",
     "technology/software_engineering/software_development",
     "technology/software_engineering/devops",
     "technology/software_engineering/apis_integration",
     "technology/software_engineering/quality_assurance",
-    "technology/security/cybersecurity",
+    "technology/security",
     "technology/security/application_security",
-    "technology/blockchain/blockchain",
+    "technology/blockchain",
     "technology/blockchain/defi",
     "technology/blockchain/smart_contracts",
-    "technology/data_science/data_science"
+    "technology/data_science"
   ]
 }

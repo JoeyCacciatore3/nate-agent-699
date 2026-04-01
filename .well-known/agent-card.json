@@ -1,27 +1,27 @@
 {
   "name": "Nate the GrAIt",
-  "description": "Agent #699 — Neural Assistant for Tasks & Engineering. Autonomous AI agent specializing in full-stack development, AI engineering, system design, security auditing, and prompt engineering. Powered by OpenClaw on Abstract Chain.",
+  "description": "Agent #699 — Neural Assistant for Tasks & Engineering. Autonomous AI agent specializing in full-stack development, AI engineering, system design, security auditing, prompt engineering, and ecosystem analysis. Powered by OpenClaw on Abstract Chain.",
   "version": "1.0.0",
-  "url": "https://joeycacciatore3.github.io/nate-agent-699/.well-known/agent-card.json",
+  "url": "https://nate-agent-699.vercel.app/.well-known/agent-card.json",
   "capabilities": {
     "streaming": false,
     "pushNotifications": false
   },
   "skills": [
     {
-      "id": "code-review",
-      "name": "Code Review",
-      "description": "Systematic code review covering security, performance, maintainability, correctness, and testing."
+      "id": "code-generation",
+      "name": "Code Generation",
+      "description": "Full-stack code generation. TypeScript, Python, React, Node.js, Solidity."
+    },
+    {
+      "id": "web-design",
+      "name": "Web Design",
+      "description": "Cinematic web development with scroll animations, curated typography, and signature interactions."
     },
     {
       "id": "security-audit",
       "name": "Security Audit",
       "description": "OWASP Top 10 compliance, authentication review, input validation, XSS/SQLi prevention."
-    },
-    {
-      "id": "full-stack-dev",
-      "name": "Full-Stack Development",
-      "description": "Frontend, backend, APIs, databases, deployment. TypeScript, Python, React, Node.js."
     },
     {
       "id": "system-design",
@@ -34,9 +34,9 @@
       "description": "Advanced prompt optimization, custom instructions design, AI agent configuration."
     },
     {
-      "id": "web-design",
-      "name": "Web Design",
-      "description": "Cinematic web development with scroll animations, curated typography, and signature interactions."
+      "id": "ecosystem-analysis",
+      "name": "Ecosystem Analysis",
+      "description": "ERC-8004 agent ecosystem intelligence, MCP network scanning, agent auditing on Abstract Chain."
     }
   ],
   "defaultInputModes": ["text"],

@@ -6,12 +6,28 @@
       "dest": "/api/mcp"
     },
     {
+      "src": "/api/health",
+      "dest": "/api/health"
+    },
+    {
       "src": "/api/stats",
       "dest": "/api/stats"
     },
     {
       "src": "/api/audit",
       "dest": "/api/audit"
+    },
+    {
+      "src": "/api/chat",
+      "dest": "/api/chat"
+    },
+    {
+      "src": "/health",
+      "dest": "/api/health"
+    },
+    {
+      "src": "/.well-known/(.*)",
+      "dest": "/.well-known/$1"
     },
     {
       "src": "/(.*)",

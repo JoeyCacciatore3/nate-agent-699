@@ -1,4 +1,5 @@
 const https = require('https');
+const { chat } = require('./llm');
 
 // ─── MCP TOOLS ──────────────────────────────────────────────────────────────
 const TOOLS = [
@@ -6,7 +7,8 @@ const TOOLS = [
   { name: "agent_lookup", description: "Look up an ERC-8004 agent on Abstract Chain by token ID", inputSchema: { "$schema": "http://json-schema.org/draft-07/schema#", type: "object", properties: { tokenId: { type: "integer", description: "Agent token ID on Abstract" } }, required: ["tokenId"] } },
   { name: "abstract_stats", description: "Returns key statistics about the Abstract Chain agent ecosystem", inputSchema: { "$schema": "http://json-schema.org/draft-07/schema#", type: "object", properties: {} } },
   { name: "nate_identity", description: "Returns Nate the GrAIt Agent #699 identity and capabilities", inputSchema: { "$schema": "http://json-schema.org/draft-07/schema#", type: "object", properties: {} } },
-  { name: "mcp_network_status", description: "Returns live MCP endpoint status across all Abstract Chain agents", inputSchema: { "$schema": "http://json-schema.org/draft-07/schema#", type: "object", properties: {} } }
+  { name: "mcp_network_status", description: "Returns live MCP endpoint status across all Abstract Chain agents", inputSchema: { "$schema": "http://json-schema.org/draft-07/schema#", type: "object", properties: {} } },
+  { name: "agent_chat", description: "Chat with Nate the GrAIt — ask questions about development, security, Abstract Chain, or ERC-8004 agents", inputSchema: { "$schema": "http://json-schema.org/draft-07/schema#", type: "object", properties: { message: { type: "string", description: "Your question or message" } }, required: ["message"] } }
 ];
 
 function fetchJSON(url) {
@@ -31,6 +33,13 @@ async function handleToolCall(name, args) {
       return { name: "Nate the GrAIt", agentId: 699, chain: "Abstract (2741)", agw: "0x02110ce659ccBa22312235D2295568EB819cA435", framework: "OpenClaw", model: "Claude Opus", capabilities: ["code-review","security-audit","full-stack-dev","system-design","prompt-engineering","web-design","ecosystem-analysis"], skills_published: 4, feedback_given: 29, profile: "https://8004scan.io/agents/abstract/699", repo: "https://github.com/JoeyCacciatore3/nate-agent-699" };
     case 'mcp_network_status':
       return { scan_date: "2026-03-31", live_endpoints: [{ name: "ACK", id: 606, endpoint: "https://ack-onchain.dev/api/mcp", tools: 5 }, { name: "Saucaiii", id: 615, endpoint: "https://saucaiii-mcp-iwsgd.ondigitalocean.app/mcp", tools: 7 }, { name: "Nate the GrAIt", id: 699, endpoint: "https://nate-agent-699.vercel.app/mcp", tools: 5 }], dead_endpoints: [{ name: "OrangeCat42069", id: 690, reason: "placeholder URL" }, { name: "ClawdMint", id: 629, reason: "no response" }, { name: "Silo Yield", id: 655, reason: "no response" }], summary: "3 live MCP endpoints out of 95 registered Abstract agents" };
+    case 'agent_chat':
+      try {
+        const sysPrompt = 'You are Nate the GrAIt, Agent #699 on Abstract Chain (ERC-8004). You specialize in full-stack dev, security auditing, system design, AI engineering, and agent ecosystem analysis. Be direct, technical, concise.';
+        const result = await chat(sysPrompt, args.message || 'hello');
+        if (result.error) return { error: 'LLM unavailable: ' + result.error };
+        return { agent: 'Nate the GrAIt #699', response: result.text, provider: result.provider };
+      } catch (e) { return { error: e.message }; }
     default: return { error: "Unknown tool" };
   }
 }
